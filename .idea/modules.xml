@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/devops-netology.iml" filepath="$PROJECT_DIR$/.idea/devops-netology.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/02-git-03.iml" filepath="$PROJECT_DIR$/.idea/02-git-03.iml" />
+>>>>>>> 1faa4f2 (New init lesson 02-git-03)
     </modules>
   </component>
 </project>
