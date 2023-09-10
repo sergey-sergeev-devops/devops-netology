@@ -6,5 +6,4 @@ for param in "$@"; do
     echo "\$@ Parameter #$count = $param"
     count=$(( $count + 1 ))
 done
-
-echo "====="
+>>>>>>> c3d5de0 (merge: @ instead * "добавлен код в merge.sh")
