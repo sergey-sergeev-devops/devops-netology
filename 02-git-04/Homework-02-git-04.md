@@ -1,9 +1,20 @@
 **Ответы на  вопросы из ДЗ**
 
 1. Полный хэш коммита aefea --> aefead2207ef7e2aa5dc81a34aedf0cad4c32545 -- Комментарий: Update CHANGELOG.md
-2. Тэг коммита 85024d3 --> (tag: v0.12.23)
+
+   Использовал команду git log aefea 
+
+2. Тэг коммита  --> (tag: v0.12.23)
+
+   Использовал команду git log 85024d3
+
 3. Два родителя коммита b8d720 --> Merge: 56cd7859e0 9ea88f22fc
+
+   Использовал команду git log b8d720
+
 4. Хеши и комментарии между тэгами  v0.12.23 и v0.12.24:
+
+   Использовал команду git log v0.12.23 v0.12.24 --oneline
 
     **b14b74c4939dcab573326f4e3ee2a62e23e12f89** --> `[Website] vmc provider links`
 
@@ -23,6 +34,17 @@
 
     **225466bc3e5f35baa5d07197bbc079345b77525e** -->  `Cleanup after v0.12.23 release`
 
+
 5. Функция func providerSource была создана в коммите --> 8c928e8358
+
+   Использовал команду --> git log -S "func providerSource" --oneline
+   Посмотрел изменения в коммите командой --> git show 8c928e8358
+
 6. Функция globalPluginDirs была изменена в коммите --> 8364383c35
+   
+   Использовал команду --> git log -S "globalPluginDirs" --oneline ---> получил список коммитов где есть эта функция
+   Потом командой --> git show "хэш коммита из предыдущей команды" ---> посмотрел что менялось 
+
 7. Автор функции synchronizedWriters --> Martin Atkins
+
+   Использована команда --> git log -p --format="%h %an %s" -SsynchronizedWriters
