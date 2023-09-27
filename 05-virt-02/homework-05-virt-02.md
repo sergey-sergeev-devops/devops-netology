@@ -20,3 +20,7 @@
 
 
 * ![Ansible](./src/Ansible.png)
+
+**Задача 4.**
+
+* ![Docker](./src/docker.jpg)
