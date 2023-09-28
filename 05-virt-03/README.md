@@ -1,8 +1,8 @@
-** Задача 1 **
+**Задача 1**
 
 - https://hub.docker.com/layers/sergeysergeevdevops/box/nginx/images/sha256-6ccaf021463a0adb69c16057877b8e9777ffdd4fea2d34f4ffe544656f65aa9f?context=repo
 
-** Задача 2 **
+**Задача 2**
 
 - высоконагруженное монолитное Java веб-приложение:
 
