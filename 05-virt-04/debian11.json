@@ -1,0 +1,25 @@
+{
+	"builders": [
+	  {
+	    "folder_id": "b1gp7gb4o7baqef6kc0u",
+	    "image_name": "debian-11-base",
+	    "image_family": "debian-11",
+	    "image_description": "debian base image",
+	    "source_image_family": "debian-11",
+	    "subnet_id": "e9bpfuhif2pvffbvvf5i",
+	    "use_ipv4_nat": true,
+	    "disk_type": "network-ssd",
+	    "ssh_username": "debian",
+	    "token": "",
+	    "type": "yandex",
+	    "zone": "ru-central1-a"
+	  }
+	],
+	"provisioners": [
+		{
+			"inline": [
+
+			]
+		}
+	]
+}

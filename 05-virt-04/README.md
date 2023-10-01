@@ -10,3 +10,8 @@
 
 **Задача 3**
 
+![ansible_playbook](./src/ansible_playbook.png)
+
+**Задача 4**
+
+![grafana](./src/grafana.png)
