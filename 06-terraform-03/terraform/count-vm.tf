@@ -19,14 +19,16 @@ resource "yandex_compute_instance" "web" {
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id
     security_group_ids = [yandex_vpc_security_group.example.id]
+    nat = true
   }
 
   scheduling_policy {
     preemptible = true
   }
 
-  metadata = {
-    ssh-key = local.ssh
-    serial-port-enable = 1
-  }
+  metadata = var.vms_metadata #{
+#    ssh-key = local.ssh
+#    ssh-key = var.vms_metadata
+#    serial-port-enable = 1
+#  }
 }

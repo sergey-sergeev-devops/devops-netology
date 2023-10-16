@@ -10,12 +10,10 @@ resource "yandex_vpc_subnet" "develop" {
 
 resource "yandex_compute_disk" "disks" {
   for_each = tomap({
-    for id in local.vm_disks_id : id.id => id
-  })#toset(local.vm_disks_id)
-  name = each.key #"${each.value["vm_name"]-${each.value["disk_name"]}}"
-  #size = local.vm_disks["disk_size"]
-  #disk_id = each.value["id"]
-
+    for id in local.vm_disks : id["disk_name"] => id
+  })
+  name = each.value["disk_name"]
+  size = each.value["disk_size"]
 }
 
 data "yandex_compute_image" "ubuntu" {

@@ -1,14 +1,14 @@
 resource "yandex_compute_instance" "web_instance" {
   depends_on = [yandex_compute_instance.web]
-  for_each = var.list_vm
+  for_each = local.test_vm
 
-  name = "${local.name}-${each.value.vm_name}"
+  name = "${local.name}-${each.key}"
   platform_id = var.web_variables.web.platform_id
   zone = var.default_zone
 
   resources {
-    cores  = each.value.cpu
-    memory = each.value.ram
+    cores  = each.value["cpu"]
+    memory = each.value["ram"]
     core_fraction = var.web_variables.web.core_fraction
   }
 
@@ -19,9 +19,15 @@ resource "yandex_compute_instance" "web_instance" {
   }
 
   dynamic "secondary_disk" {
-    for_each = local.vm_disks_id
+    for_each = each.value["disk"]
+#    for_each = tomap({
+#      for id in toset(
+#        var.list_vm.disk
+#      ) : id["disk_name"] => id
+#    })
     content {
-      disk_id = yandex_compute_disk.disks.product_ids
+      disk_id = yandex_compute_disk.disks[secondary_disk.key].id
+      device_name = secondary_disk.key
       auto_delete = true
     }
   }
@@ -29,14 +35,16 @@ resource "yandex_compute_instance" "web_instance" {
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id
     security_group_ids = [yandex_vpc_security_group.example.id]
+    nat = true
   }
 
   scheduling_policy {
     preemptible = true
   }
 
-  metadata = {
-    ssh-key = local.ssh
-    serial-port-enable = 1
-  }
+  metadata = var.vms_metadata #{
+#    ssh-key = local.ssh
+#    ssh-key = var.vms_metadata
+#    serial-port-enable = 1
+#  }
 }
