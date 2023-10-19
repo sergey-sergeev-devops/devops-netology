@@ -360,3 +360,12 @@
  - [----> ansible.cfg](./terraform/ansible.cfg)
  - [----> ansible.tf](./terraform/ansible.tf)
  - [----> ansible.tftpl](./terraform/ansible.tftpl)
+
+### ***Задание 5***
+
+- ![terraform-output](./src/terraform-output.png)
+- [----> output.tf](./terraform/output.tf)
+
+### ***Задание 6***
+
+- [----> ansible.tftpl](./terraform/ansible.tftpl)

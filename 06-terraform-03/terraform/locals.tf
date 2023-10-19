@@ -1,6 +1,7 @@
 locals {
   name     = "netology-${var.vpc_name}-${var.web_variables.web.name}"
   ssh      = file("/home/dev-sso/.ssh/id_ed25519.pub")
+
   vm_disks = flatten([
     for obj in var.list_vm : [
       for ds in obj.disk : {
