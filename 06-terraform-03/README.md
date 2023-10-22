@@ -368,4 +368,41 @@
 
 ### ***Задание 6***
 
+    null_resource.web_hosts_provision (local-exec): PLAY RECAP *********************************************************************
+    null_resource.web_hosts_provision (local-exec): netology-develop-platform-web-1 : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    null_resource.web_hosts_provision (local-exec): netology-develop-platform-web-2 : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    null_resource.web_hosts_provision (local-exec): netology-develop-platform-web-main : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    null_resource.web_hosts_provision (local-exec): netology-develop-platform-web-replica : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    null_resource.web_hosts_provision (local-exec): platform-storage           : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+    
+    null_resource.web_hosts_provision: Creation complete after 1m44s [id=3313822044562606370]
+    
+    Apply complete! Resources: 14 added, 0 changed, 0 destroyed.
+
+    переменная vms_metadata:
+    vms_metadata = {
+      ssh-keys              = "ubuntu:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGX443wu+6htOoxTMSV5dvt6DEMmzElVvn6aYH+4iLhF dev-sso@C-IT-SSO",
+      serial-port-enable    = 1
+      install-unified-agent = 0
+      user-data             = "#cloud-config\nssh_pwauth: no\nusers:\n  - name: ubuntu\n    groups: sudo\n    shell: /bin/bash\n    sudo: 'ALL=(ALL) NOPASSWD:ALL'\n    ssh-authorized-keys:\n    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGX443wu+6htOoxTMSV5dvt6DEMmzElVvn6aYH+4iLhF dev-sso@C-IT-SSO"
+    }
+
+    Last login: Sun Oct 22 09:27:54 2023 from 95.165.177.186
+    ubuntu@fhmq69c77mgnk7lbmep3:~$ 
+    ubuntu@fhmq69c77mgnk7lbmep3:~$ 
+    ubuntu@fhmq69c77mgnk7lbmep3:~$ systemctl status nginx
+    ● nginx.service - A high performance web server and a reverse proxy server
+         Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+         Active: active (running) since Sun 2023-10-22 09:28:24 UTC; 22min ago
+           Docs: man:nginx(8)
+       Main PID: 1519 (nginx)
+          Tasks: 3 (limit: 2293)
+         Memory: 5.7M
+         CGroup: /system.slice/nginx.service
+                 ├─1519 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+                 ├─1520 nginx: worker process
+                 └─1521 nginx: worker process
+    ubuntu@fhmq69c77mgnk7lbmep3:~$ 
+
+
 - [----> ansible.tftpl](./terraform/ansible.tftpl)

@@ -26,6 +26,9 @@ resource "yandex_compute_instance" "web" {
     preemptible = true
   }
 
+#  metadata = {
+#    ssh-key = "ubuntu:AAAAC3NzaC1lZDI1NTE5AAAAIGX443wu+6htOoxTMSV5dvt6DEMmzElVvn6aYH+4iLhF dev-sso@C-IT-SSO"
+#  }
   metadata = var.vms_metadata #{
 #    ssh-key = local.ssh
 #    ssh-key = var.vms_metadata
