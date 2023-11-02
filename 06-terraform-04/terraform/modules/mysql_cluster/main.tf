@@ -22,7 +22,7 @@ resource "yandex_mdb_mysql_cluster" "mysql-cluster" {
   dynamic "host" {
     for_each = local.hosts
     content {
-      zone      = host.key
+      zone      = host.value["zone"]
       subnet_id = var.subnet_id
     }
   }
@@ -33,5 +33,5 @@ locals {
         zone      = "ru-central1-a"
         subnet_id = var.subnet_id
   }]}"
-  cluster_ids = [for item in yandex_mdb_mysql_cluster.mysql-cluster : item.id]
+  cluster_ids = [yandex_mdb_mysql_cluster.mysql-cluster.id]                #[for item in yandex_mdb_mysql_cluster.mysql-cluster : item["id"]]
 }

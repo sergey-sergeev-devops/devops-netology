@@ -56,11 +56,16 @@ module "mysql-cluster" {
   name = "sql"
   network_id = module.vpc_dev.network_id
   subnet_id = module.vpc_dev.subnet_ids.0
-  hosts = [{
+  hosts = [
+    {
     zone = "ru-central1-a"
     subnet_id = module.vpc_dev.subnet_ids.0
-  }]
-#  HA = true
+    },
+    {
+      zone = "ru-central1-a"
+    subnet_id = module.vpc_dev.subnet_ids.0
+    }]
+  HA = true
 }
 
 module "mysql-db" {

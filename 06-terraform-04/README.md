@@ -317,3 +317,104 @@
 
  - [modules/mysql_cluster](./terraform/modules/mysql_cluster)
  - [modules/mysql_db](./terraform/modules/mysql_db)
+
+   ````Plan: 11 to add, 0 to change, 0 to destroy.
+   ╷
+   │ Warning: Version constraints inside provider configuration blocks are deprecated
+   │ 
+   │   on .terraform/modules/test-vm/providers.tf line 2, in provider "template":
+   │    2:   version = "2.2.0"
+   │ 
+   │ Terraform 0.13 and earlier allowed provider version constraints inside the provider configuration block, but that is now deprecated and will be removed in a future version of Terraform. To silence this warning, move the
+   │ provider version constraint into the required_providers block.
+   ╵
+   
+   Do you want to perform these actions?
+     Terraform will perform the actions described above.
+     Only 'yes' will be accepted to approve.
+   
+     Enter a value: yes
+   
+   module.subnet.yandex_vpc_network.develop: Creating...
+   module.vpc_dev.yandex_vpc_network.develop: Creating...
+   module.vpc_dev.yandex_vpc_network.develop: Creation complete after 2s [id=enpape5foraml0uu2fdo]
+   module.vpc_dev.yandex_vpc_subnet.develop[0]: Creating...
+   module.subnet.yandex_vpc_network.develop: Creation complete after 3s [id=enp855t8tpt4o5gtle1e]
+   module.subnet.yandex_vpc_subnet.develop[1]: Creating...
+   module.subnet.yandex_vpc_subnet.develop[0]: Creating...
+   module.subnet.yandex_vpc_subnet.develop[2]: Creating...
+   module.vpc_dev.yandex_vpc_subnet.develop[0]: Creation complete after 1s [id=e9b4c5h38nc735ej206m]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Creating...
+   module.test-vm.yandex_compute_instance.vm[0]: Creating...
+   module.test-vm.yandex_compute_instance.vm[1]: Creating...
+   module.subnet.yandex_vpc_subnet.develop[0]: Creation complete after 1s [id=e9b047hr5k6mghffb6ih]
+   module.subnet.yandex_vpc_subnet.develop[1]: Creation complete after 1s [id=e2lqc5meucfoce3pe7ok]
+   module.subnet.yandex_vpc_subnet.develop[2]: Creation complete after 2s [id=b0cgao0p2qdrfrai9lp1]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [10s elapsed]
+   module.test-vm.yandex_compute_instance.vm[0]: Still creating... [10s elapsed]
+   module.test-vm.yandex_compute_instance.vm[1]: Still creating... [10s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [20s elapsed]
+   module.test-vm.yandex_compute_instance.vm[0]: Still creating... [20s elapsed]
+   module.test-vm.yandex_compute_instance.vm[1]: Still creating... [20s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [30s elapsed]
+   module.test-vm.yandex_compute_instance.vm[1]: Still creating... [30s elapsed]
+   module.test-vm.yandex_compute_instance.vm[0]: Still creating... [30s elapsed]
+   module.test-vm.yandex_compute_instance.vm[1]: Creation complete after 35s [id=fhmgmqtptj37i2vrat49]
+   module.test-vm.yandex_compute_instance.vm[0]: Creation complete after 38s [id=fhmlno827v7n89d3ehhu]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [40s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [50s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [1m0s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [1m10s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [1m20s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [1m30s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [1m40s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [1m50s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [2m0s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [2m10s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [2m20s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [2m30s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [2m40s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [2m50s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [3m0s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [3m10s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [3m20s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [3m30s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [3m40s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [3m50s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [4m0s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [4m10s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [4m20s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [4m30s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [4m40s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [4m50s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [5m0s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [5m10s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [5m20s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [5m30s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [5m40s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [5m50s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [6m0s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [6m10s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [6m20s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [6m30s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [6m40s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [6m50s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [7m0s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Still creating... [7m10s elapsed]
+   module.mysql-cluster.yandex_mdb_mysql_cluster.mysql-cluster: Creation complete after 7m19s [id=c9qs9heplt8d7kihge6o]
+   module.mysql-db.yandex_mdb_mysql_database.my-db: Creating...
+   module.mysql-db.yandex_mdb_mysql_database.my-db: Still creating... [10s elapsed]
+   module.mysql-db.yandex_mdb_mysql_database.my-db: Still creating... [20s elapsed]
+   module.mysql-db.yandex_mdb_mysql_database.my-db: Still creating... [30s elapsed]
+   module.mysql-db.yandex_mdb_mysql_database.my-db: Creation complete after 33s [id=c9qs9heplt8d7kihge6o:test_db]
+   module.mysql-db.yandex_mdb_mysql_user.db_user: Creating...
+   module.mysql-db.yandex_mdb_mysql_user.db_user: Still creating... [10s elapsed]
+   module.mysql-db.yandex_mdb_mysql_user.db_user: Still creating... [20s elapsed]
+   module.mysql-db.yandex_mdb_mysql_user.db_user: Creation complete after 27s [id=c9qs9heplt8d7kihge6o:user]
+   
+   Apply complete! Resources: 11 added, 0 changed, 0 destroyed.
+   dev-sso@C-IT-SSO:~/lesson/devops/git/devops-netology/06-terraform-04/terraform$   
+
+ - ![terraform-mysql-hosts](./src/terraform-mysql-hosts.png)
+
+### ***Задание 6***
