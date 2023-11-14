@@ -25,3 +25,8 @@
 ### ***Задание 9 - 10 - 11***
 
  - ![ansible-01-task-09](./src/ansible-01-task-09.png)
+
+### ***Дополнительные задания***
+
+ - ![ansible-01-task-xx01](./src/ansible-01-task-xx01.png)
+ - ![ansible-01-task-xx02](./src/ansible-01-task-xx02.png)
