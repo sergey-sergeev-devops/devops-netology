@@ -1,9 +1,19 @@
 ---
   el:
     hosts:
-      centos7:
-        ansible_connection: docker
+      dev-ubuntu-01:
+        ansible_host: 158.160.106.231
+        ansible_user: ubuntu
+        ansible_ssh_private_key_file: /home/dev-sso/.ssh/id_ed25519
   deb:
     hosts:
-      ubuntu:
-        ansible_connection: docker
+      dev-ubuntu-02:
+        ansible_host: 158.160.108.24
+        ansible_user: ubuntu
+        ansible_ssh_private_key_file: /home/dev-sso/.ssh/id_ed25519
+  smtc:
+    hosts:
+      dev-ubuntu-03:
+        ansible_host: 158.160.124.137
+        ansible_user: ubuntu
+        ansible_ssh_private_key_file: /home/dev-sso/.ssh/id_ed25519
