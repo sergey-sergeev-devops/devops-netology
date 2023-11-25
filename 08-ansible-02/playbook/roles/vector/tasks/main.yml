@@ -1,0 +1,17 @@
+---
+- name: Download script for add the repo
+  ansible.builtin.get_url:
+    url: https://setup.vector.dev
+    dest: ~/vector_add_repo.sh
+    mode: 600
+- name: Add the repo
+  ansible.builtin.command: bash vector_add_repo.sh
+- name: Install Vector
+  ansible.builtin.yum:
+    name:
+      - vector
+- name: Replace vector.yaml
+  ansible.builtin.template:
+    src: templates/vector.yaml
+    dest: /etc/vector/vector.yaml
+    mode: '0644'
