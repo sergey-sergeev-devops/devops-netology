@@ -1,0 +1,3 @@
+lighthouse_worker_processes: auto
+lighthouse_worker_connections: 2048
+lighthouse_client_max_body_size: 512M

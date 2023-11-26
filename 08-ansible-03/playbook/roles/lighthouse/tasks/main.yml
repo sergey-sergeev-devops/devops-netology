@@ -1,0 +1,37 @@
+---
+- name: Install EPEL Repo
+  yum:
+    name=epel-release
+    state=present
+- name: Install git and nginx
+  ansible.builtin.yum:
+    name:
+      - git
+      - nginx
+  notify:
+      - Nginx systemd
+- name: Replace nginx.conf
+  ansible.builtin.template:
+    src: templates/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    mode: '0644'
+- name: Create home directory for www
+  ansible.builtin.file:
+    path: /opt/lighthouse/{{ virtual_domain }}
+    state: directory
+    mode: '0644'
+- name: Add virtual domain in NGINX for RPM
+  vars:
+    fastcgi_pass_path: /var/run/php-fpm/php5-fpm.sock
+  ansible.builtin.template:
+    src: templates/nginx_vhosts.conf
+    dest: /etc/nginx/conf.d/{{ virtual_domain }}.conf
+    mode: '0644'
+  when:
+    ansible_os_family == "RedHat"
+  notify:
+    - Nginx restart
+- name: Download lighthouse
+  ansible.builtin.git:
+    repo: https://github.com/VKCOM/lighthouse.git
+    dest: /opt/lighthouse/{{ virtual_domain }}
