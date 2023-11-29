@@ -1,12 +1,28 @@
 ---
-- name: Install Clickhouse and vector and lighthouse
+- name: Install Clickhouse
   hosts: clickhouse
+  become: true
+  roles:
+    - clickhouse
+  tags:
+    - clickhouse
+
+- name: Install Vector
+  hosts: vector
+  become: true
+  roles:
+    - vector
+  tags:
+    - vector
+
+- name: Install Lighthouse
+  hosts: lighthouse
   vars:
     nginx_user: nginx
   become: true
   roles:
-    - cklickhous
-    - vector
+    - lighthouse
+  tags:
     - lighthouse
 
 #sudo iptables -t nat -A PREROUTING --dst 158.160.127.125 -p tcp --dport 8123 -j DNAT --to-destination 127.0.0.1

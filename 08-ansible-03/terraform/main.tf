@@ -42,3 +42,63 @@ resource "yandex_compute_instance" "dev-01" {
     ssh-keys =  var.metadata_ssh
   }
 }
+
+resource "yandex_compute_instance" "dev-02" {
+  name        = "${var.vm_name}-02"
+  platform_id = var.vm_platform_id
+
+  resources {
+    cores  = var.vm_core
+    memory = var.vm_memory
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.centos.image_id
+    }
+  }
+
+  scheduling_policy {
+    preemptible = true
+  }
+
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = true
+  }
+
+  metadata = {
+    #user-data  = var.metadata_user
+    ssh-keys =  var.metadata_ssh
+  }
+}
+
+resource "yandex_compute_instance" "dev-03" {
+  name        = "${var.vm_name}-03"
+  platform_id = var.vm_platform_id
+
+  resources {
+    cores  = var.vm_core
+    memory = var.vm_memory
+  }
+
+  boot_disk {
+    initialize_params {
+      image_id = data.yandex_compute_image.centos.image_id
+    }
+  }
+
+  scheduling_policy {
+    preemptible = true
+  }
+
+  network_interface {
+    subnet_id = yandex_vpc_subnet.develop.id
+    nat       = true
+  }
+
+  metadata = {
+    #user-data  = var.metadata_user
+    ssh-keys =  var.metadata_ssh
+  }
+}

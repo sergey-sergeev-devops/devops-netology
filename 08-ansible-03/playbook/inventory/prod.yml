@@ -1,8 +1,21 @@
 ---
-clickhouse:
+clickhouse_servers:
   hosts:
-    clickhouse-01:
-      ansible_host: 62.84.112.199
+    clickhouse:
+      ansible_host: 158.160.110.123
       ansible_user: centos
       ansible_ssh_private_key_file: /home/dev-sso/.ssh/id_ed25519
-      virtual_domain: lighthouse.byendnes.ru
+
+vector_servers:
+  hosts:
+    vector:
+      ansible_host: 178.154.201.211
+      ansible_user: centos
+      ansible_ssh_private_key_file: /home/dev-sso/.ssh/id_ed25519
+
+lighthouse_servers:
+  hosts:
+    lighthouse:
+      ansible_host: 84.252.131.97
+      ansible_user: centos
+      ansible_ssh_private_key_file: /home/dev-sso/.ssh/id_ed25519

@@ -1,3 +1,4 @@
 lighthouse_worker_processes: auto
-lighthouse_worker_connections: 2048
+lighthouse_worker_connections: 1024
 lighthouse_client_max_body_size: 512M
+nginx_user: nginx

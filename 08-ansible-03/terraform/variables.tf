@@ -27,7 +27,7 @@ variable "default_cidr" {
 
 variable "vm_name" {
   type = string
-  default = "dev-ubuntu"
+  default = "dev"
 }
 
 variable "vm_platform_id" {
