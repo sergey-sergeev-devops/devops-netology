@@ -11,4 +11,6 @@
 ![nexus-maven-gav](./src/nexus-maven-gav.png)
 ![maven-metadata](./mvn/maven-metadata.xml)
 ![maven-mvn-package](./src/maven-mvn-package.png)
-![pom.xml](./mvn/pom.xml)
+
+
+pom.xml[pom.xml](./mvn/pom.xml)
