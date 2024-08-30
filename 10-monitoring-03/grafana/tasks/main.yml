@@ -1,0 +1,44 @@
+---
+- name: Installing dependencies
+  ansible.builtin.apt:
+    pkg:
+    - apt-transport-https 
+    - software-properties-common
+    - wget
+    - adduser 
+    - libfontconfig1 
+    - musl
+  become: true
+
+- name: Create directory grafana_tmp_dir
+  ansible.builtin.file:
+    name: "{{ grafana_tmp_dir }}"
+    state: directory
+
+- name: Download grafana
+  ansible.builtin.get_url:
+    url: "{{ grafana_url }}"
+    dest: "{{ grafana_tmp_dir }}/grafana.deb"
+
+- name: Install Grafana
+  ansible.builtin.apt:
+    deb: "{{ grafana_tmp_dir }}/grafana.deb"
+  become: true
+
+- name: Reload systemd
+  ansible.builtin.shell:
+    cmd: systemctl daemon-reload
+  become: true
+
+- name: Enable service grafana
+  ansible.builtin.service:
+    name: grafana-server
+    enabled: yes
+  become: true
+
+- name: Start service grafana
+  ansible.builtin.service:
+    name: grafana-server
+    state: started
+  become: true
+    

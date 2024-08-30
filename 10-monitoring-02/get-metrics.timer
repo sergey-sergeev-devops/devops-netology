@@ -1,0 +1,10 @@
+[Unit]
+Description=This timer starts the system statistics collection service
+Requires=get-metrics.service
+
+[Timer]
+Unit=get-metrics.service
+OneCalendar=*-*-* *:*:00
+
+[Install]
+WantedBy=timer.target

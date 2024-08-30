@@ -1,0 +1,129 @@
+---
+- name: Create tmp directory
+  ansible.builtin.file: 
+    path: "{{ prometheus_tmp }}"
+    state: directory
+
+- name: Download prometheus
+  ansible.builtin.get_url:
+    url: "{{ prometheus_url }}"
+    dest: "{{ prometheus_tmp }}/prometheus.tar.gz"
+
+- name: Extract prometheus into {{ prometheus_dir }}
+  ansible.builtin.unarchive:
+    src: "{{ prometheus_tmp }}/prometheus.tar.gz"
+    dest: "{{ prometheus_tmp }}"
+    remote_src: yes
+  become: true
+
+- name: Find the directory extracted using pattern
+  ansible.builtin.find:
+    path: "{{ prometheus_tmp }}"
+    file_type: directory
+    patterns: "prometheus-*"
+  register: extracted_prometheus_dir
+
+- name: Create system group prometheus
+  ansible.builtin.group:
+    name: prometheus
+    system: true
+    state: present
+  become: true
+
+- name: Create user "prometheus" and add into group prometheus
+  ansible.builtin.user:
+    name: prometheus
+    groups: prometheus
+    shell: /sbin/nologin
+    create_home: false
+    append: true
+    comment: "Prometheus system nologin user"
+    state: present
+  become: true
+
+- name: Create directory /etc/prometheus
+  ansible.builtin.file: 
+    path: "{{ prometheus_dir }}"
+    state: directory
+  become: true
+
+- name: Create directory /var/lib/prometheus
+  ansible.builtin.file: 
+    path: "{{ prometheus_lib_dir }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+  become: true
+
+- name: Copy file prometheus into /usr/local/bin/
+  ansible.builtin.copy:
+    src: "{{ item.path }}/prometheus"
+    dest: /usr/local/bin/prometheus
+    owner: prometheus
+    group: prometheus
+    remote_src: yes
+    mode: "0755"
+  become: true
+  with_items: "{{ extracted_prometheus_dir.files }}"
+
+- name: Copy file promtool into /usr/local/bin/
+  ansible.builtin.copy:
+    src: "{{ item.path }}/promtool"
+    dest: /usr/local/bin/promtool
+    owner: prometheus
+    group: prometheus
+    remote_src: yes
+    mode: "0755"
+  become: true
+  with_items: "{{ extracted_prometheus_dir.files }}"
+
+- name: Copy file consoles into {{ prometheus_dir }}
+  ansible.builtin.copy:
+    src: "{{ item.path }}/consoles/"
+    dest: "{{ prometheus_dir }}/consoles/"
+    owner: prometheus
+    group: prometheus
+    remote_src: yes
+  become: true
+  with_items: "{{ extracted_prometheus_dir.files }}"
+
+- name: Copy file console_libraries into {{ prometheus_dir }}
+  ansible.builtin.copy:
+    src: "{{ item.path }}/console_libraries/"
+    dest: "{{ prometheus_dir }}/console_libraries/"
+    owner: prometheus
+    group: prometheus
+    remote_src: yes
+  become: true
+  with_items: "{{ extracted_prometheus_dir.files }}"
+
+- name: Copy file prometheus.yml into {{ prometheus_dir }}
+  ansible.builtin.copy:
+    src: prometheus.yml
+    dest: "{{ prometheus_dir }}"
+    owner: prometheus
+    group: prometheus
+  become: true
+
+- name: Copy file prometheus.service into /etc/systemd/system/
+  ansible.builtin.copy:
+    src: prometheus.service
+    dest: "/etc/systemd/system/"
+  become: true
+
+- name: Reload systemd
+  ansible.builtin.shell:
+    cmd: systemctl daemon-reload
+  become: true
+
+- name: Enable service prometheus
+  ansible.builtin.service:
+    name: prometheus
+    enabled: yes
+  become: true
+
+- name: Start service prometheus
+  ansible.builtin.service:
+    name: prometheus
+    state: started
+  become: true

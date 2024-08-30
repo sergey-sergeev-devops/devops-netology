@@ -1,0 +1,5 @@
+---
+prometheus_tmp: "/tmp/prometheus_tmp"
+prometheus_url: "https://github.com/prometheus/prometheus/releases/download/v2.53.2/prometheus-2.53.2.linux-amd64.tar.gz"
+prometheus_dir: "/etc/prometheus"
+prometheus_lib_dir: "/var/lib/prometheus"

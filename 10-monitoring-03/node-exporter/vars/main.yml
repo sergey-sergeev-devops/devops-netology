@@ -1,0 +1,2 @@
+node_exporter_tmp_dir: "/tmp/node_exporter_tmp_dir"
+node_exporter_dir: "/etc/node_exporter"
