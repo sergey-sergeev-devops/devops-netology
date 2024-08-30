@@ -1,0 +1,20 @@
+---
+- hosts: prometheus
+  roles:
+    - prometheus
+  vars:
+    ansible_user: ubuntu
+    ansible_connection_type: paramiko
+# - hosts: node_exporter
+#   roles:
+#     - node-exporter
+#   vars:
+#     ansible_user: ubuntu
+#     ansible_connection_type: paramiko
+# - hosts: grafana
+#   roles:
+#     - node-exporter
+#     - grafana
+#   vars:
+#     ansible_user: ubuntu
+#     ansible_connection_type: paramiko

@@ -1,0 +1,62 @@
+---
+- name: Create directory {{ node_exporter_tmp_dir }}
+  ansible.builtin.file:
+    path: "{{ node_exporter_tmp_dir }}"
+    state: directory
+
+- name: Create directory {{ node_exporter_dir }}
+  ansible.builtin.file:
+    path: "{{ node_exporter_dir }}"
+    state: directory
+  become: true
+
+- name: Download node_exporter
+  ansible.builtin.get_url:
+    url: "https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz"
+    dest: "{{ node_exporter_tmp_dir }}/node_exporter.tar.gz"
+
+- name: Extract node_exporter into {{ node_exporter_tmp_dir }}
+  ansible.builtin.unarchive:
+    src: "{{ node_exporter_tmp_dir }}/node_exporter.tar.gz"
+    dest: "{{ node_exporter_tmp_dir }}"
+    remote_src: yes
+  become: true
+
+- name: Find the directory extracted using pattern
+  ansible.builtin.find:
+    path: "{{ node_exporter_tmp_dir }}"
+    file_type: directory
+    patterns: "node_exporter-*"
+  register: extracted_node_exporter_dir
+
+- name: Copy file node_exporter into {{ node_exporter_dir }}
+  ansible.builtin.copy:
+    src: "{{ item.path }}/node_exporter"
+    dest: "{{node_exporter_dir}}/node_exporter"
+    remote_src: yes
+    mode: "0755"
+  become: true
+  with_items: "{{ extracted_node_exporter_dir.files }}"
+
+- name: Copy file node_exporter.service into /etc/systemd/system/
+  ansible.builtin.copy:
+    src: node_exporter.service
+    dest: "/etc/systemd/system/"
+  become: true
+
+- name: Reload systemd
+  ansible.builtin.shell:
+    cmd: systemctl daemon-reload
+  become: true
+
+- name: Enable service prometheus
+  ansible.builtin.service:
+    name: node_exporter
+    enabled: yes
+  become: true
+
+- name: Start service prometheus
+  ansible.builtin.service:
+    name: node_exporter
+    state: started
+  become: true

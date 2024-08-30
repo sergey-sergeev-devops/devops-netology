@@ -1,0 +1,12 @@
+prometheus:
+  hosts: 
+    prometheus-server:
+      ansible_host: 89.169.128.202
+node_exporter:
+  hosts:
+    prometheus-agent:
+      ansible_host: 89.169.131.75
+grafana:
+  hosts:
+    grafana-server:
+      ansible_host: 89.169.139.83

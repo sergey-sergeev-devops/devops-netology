@@ -1,0 +1,10 @@
+[Unit]
+Description=This service runs a script to collect system metrics in JSON format
+Wants=get-metrics.timer
+
+[Service]
+Type=oneshot
+ExecStart=/etc/get_metrics.sh
+
+[Install]
+WantedBy=multi-user.target
