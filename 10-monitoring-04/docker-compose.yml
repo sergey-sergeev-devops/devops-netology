@@ -1,0 +1,111 @@
+version: '3.3'
+services:
+  elastic-node-01:
+    image: elasticsearch:$STACK_VERSION
+    container_name: elastic-node-01
+    environment:
+      - node.name=elastic-node-01
+      - cluster.name=elastic-cluster
+      - discovery.seed_hosts=elastic-node-02
+      - cluster.initial_master_nodes=elastic-node-01,elastic-node-02
+      - node.roles=master,data_content,data_hot
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "http.host=0.0.0.0"
+    volumes:
+      - elastic-node-01-data:/usr/share/elasticsearch/data:Z
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - elastic-network
+
+  elastic-node-02:
+    image: elasticsearch:$STACK_VERSION
+    container_name: elastic-node-02
+    environment:
+      - node.name=elastic-node-02
+      - cluster.name=elastic-cluster
+      - discovery.seed_hosts=elastic-node-01
+      - cluster.initial_master_nodes=elastic-node-01,elastic-node-02
+      - node.roles=master,data_warm
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "http.host=0.0.0.0"
+    volumes:
+      - elastic-node-02-data:/usr/share/elasticsearch/data:Z
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    networks:
+      - elastic-network
+
+  kibana:
+    image: kibana:$STACK_VERSION
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://elastic-node-01:9200
+      ELASTICSEARCH_HOSTS: '["http://elastic-node-01:9200","http://elastic-node-02:9200"]'
+    networks:
+      - elastic-network
+    depends_on:
+      - elastic-node-01
+      - elastic-node-02
+
+  logstash:
+    image: logstash:$STACK_VERSION
+    container_name: logstash
+    environment:
+      - "LS_JAVA_OPTS=-Xms256m -Xmx256m"
+    ports:
+      - 5046:5046
+      - 5044:5044
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:Z
+      - ./logstash/logstash.yml:/opt/logstash/config/logstash.yml:Z
+    networks:
+      - elastic-network
+    depends_on:
+      - elastic-node-01
+      - elastic-node-02
+
+  filebeat:
+    image: elastic/filebeat:$STACK_VERSION
+    container_name: filebeat
+    privileged: true
+    user: root
+    command: filebeat -e -strict.perms=false
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:Z
+      - /var/lib/docker:/var/lib/docker:Z
+      - /var/run/docker.sock:/var/run/docker.sock:Z
+    depends_on:
+      - logstash
+    networks:
+      - elastic-network
+
+  some_application:
+    image: library/python:3.9-alpine
+    container_name: some_app
+    volumes:
+      - ./pinger/:/opt/:Z
+    entrypoint: python3 /opt/run.py
+
+networks:
+  elastic-network:
+    driver: bridge
+volumes:
+  elastic-node-01-data:
+    driver: local
+  elastic-node-02-data:
+    driver: local
