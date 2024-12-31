@@ -1,0 +1,34 @@
+stages:
+  - build
+  - deploy
+image: docker:20.10.5
+services:
+  - docker:20.10.5-dind
+builder:
+  stage: build
+  script:
+    - mkdir runner-tmp
+    - cd runner-tmp
+    - git clone ssh://git@gitlab.local.ru:2424/root/devops-netology.git
+    - cd devops-netology/
+    - docker build -t cr.yandex/crpb02jic7s0johgj2ct/hello:gitlab-$CI_COMMIT_SHORT_SHA .
+    - echo "y0_AgAAAABwTmsdAATuwQAAAADuBjMSN-aiN14NStGvSBRSUPGWhF8WZyA" | docker login --username oauth --password-stdin cr.yandex
+    - docker push cr.yandex/crpb02jic7s0johgj2ct/hello:gitlab-$CI_COMMIT_SHORT_SHA
+    - cd ../
+    - rm -r runner-tmp
+  except:
+    - main
+deployer:
+  stage: deploy
+  script:
+    - mkdir runner-tmp
+    - cd runner-tmp
+    - git clone ssh://git@gitlab.local.ru:2424/root/devops-netology.git
+    - cd devops-netology/
+    - docker build -t cr.yandex/crpb02jic7s0johgj2ct/hello:gitlab-$CI_COMMIT_SHORT_SHA .
+    - echo "y0_AgAAAABwTmsdAATuwQAAAADuBjMSN-aiN14NStGvSBRSUPGWhF8WZyA" | docker login --username oauth --password-stdin cr.yandex
+    - docker push cr.yandex/crpb02jic7s0johgj2ct/hello:gitlab-$CI_COMMIT_SHORT_SHA
+    - cd ../../
+    - rm -r runner-tmp
+  only:
+    - main
