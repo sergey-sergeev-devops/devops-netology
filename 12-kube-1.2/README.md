@@ -33,7 +33,7 @@
 
 - Манифест Pod [hello-world.yaml](./hello-world.yaml)
 - `kubectl port-forward -n default pods/hello-world 8080:8080`
-![Подключился к Pod](image.png)
+![Подключился к Pod](./src/image.png)
 
 ------
 
