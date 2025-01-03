@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  labels:
+    app: busybox-multitool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-multitool
+  template:
+    metadata:
+      labels:
+        app: nginx-multitool
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        volumeMounts:
+          - name: nginx-config-volume
+            mountPath: /usr/share/nginx/html
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+          - name: HTTP_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: multitool-config
+                key: HTTP_PORT
+          - name: HTTPS_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: multitool-config
+                key: HTTPS_PORT
+      volumes:
+      - name: nginx-config-volume
+        configMap:
+          name: nginx-config
