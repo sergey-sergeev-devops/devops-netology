@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+  labels:
+    app: busybox-multitool
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: busybox-multitool
+  template:
+    metadata:
+      labels:
+        app: busybox-multitool
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:latest
+        command: ['sh', '-c', 'while true ; do echo "$(date) INFO :: log busybox" >> /var/busybox-log/busybox.log ; sleep 15 ; done']
+        volumeMounts:
+          - name: busybox-log
+            mountPath: /var/busybox-log
+      - name: multitool
+        image: wbitt/network-multitool
+        volumeMounts:
+          - name: busybox-log
+            mountPath: /var/busybox-log
+      volumes:
+      - name: busybox-log
+        persistentVolumeClaim:
+          claimName: pvc-claim
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-claim
+spec:
+  storageClassName: "microk8s-hostpath"
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
